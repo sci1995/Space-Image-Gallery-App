@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.finalassignment.AdaptorNasa;
@@ -67,6 +69,8 @@ public class SecondActivityRecyclerView extends AppCompatActivity {
                         "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     private void generateDataList(NasaCollection collection) {
@@ -77,6 +81,34 @@ public class SecondActivityRecyclerView extends AppCompatActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SecondActivityRecyclerView.this);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
+
+
+            adapter.setItemClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+                    int position = viewHolder.getAdapterPosition();
+
+                    if (position != RecyclerView.NO_POSITION) {
+                        NasaItem clickedItem = adapter.getItem(position);
+
+                        if (clickedItem != null) {
+                            String title = clickedItem.getData().get(0).getTitle();
+                            String description = clickedItem.getData().get(0).getDescription();
+                            String imageUrl = clickedItem.getLinks().get(0).getHref();
+
+
+                            Intent intent = new Intent(getApplicationContext(), ThirdRecyclerItem.class);
+
+                            intent.putExtra("title", title);
+                            intent.putExtra("description", description);
+                            intent.putExtra("imageUrl", imageUrl);
+
+                            startActivity(intent);
+                        }
+                    }
+                }
+            });
         }
     }
 }

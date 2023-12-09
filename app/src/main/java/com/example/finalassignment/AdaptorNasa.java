@@ -22,6 +22,7 @@ import java.util.List;
 public class AdaptorNasa extends RecyclerView.Adapter<AdaptorNasa.NasaViewHolder> {
 
 
+    private View.OnClickListener onItemClickListener;
     private NasaCollection imagecollection;
     private Context context;
 
@@ -31,10 +32,18 @@ public class AdaptorNasa extends RecyclerView.Adapter<AdaptorNasa.NasaViewHolder
     }
 
 
+    public void setItemClickListener(View.OnClickListener clickListener) {
+        onItemClickListener = clickListener;
+    }
+    public NasaItem getItem(int position) {
+        if (imagecollection.getItems() != null && position >= 0 && position < imagecollection.getItems().size()) {
+            return imagecollection.getItems().get(position);
+        } else {
+            return null;
+        }
+    }
     class NasaViewHolder extends RecyclerView.ViewHolder {
-
         public final View mView;
-
         TextView txtTitle;
         TextView txtDescription;
         private ImageView coverImage;
@@ -45,6 +54,8 @@ public class AdaptorNasa extends RecyclerView.Adapter<AdaptorNasa.NasaViewHolder
             this.txtTitle = mView.findViewById(R.id.imgTitle);
             this.txtDescription = mView.findViewById(R.id.description);
             this.coverImage = mView.findViewById(R.id.Image);
+            itemView.setTag(this);
+            itemView.setOnClickListener(onItemClickListener);
         }
     }
 
@@ -77,8 +88,9 @@ public class AdaptorNasa extends RecyclerView.Adapter<AdaptorNasa.NasaViewHolder
                         .error(R.drawable.ic_launcher_background)
                         .into(holder.coverImage);
             } else {
-                 holder.txtTitle.setText("empty Title");
-                holder.txtDescription.setText("empty description");
+                holder.txtTitle.setText("No Title");
+                holder.txtDescription.setText("No Description");
+                holder.coverImage.setImageResource(R.drawable.ic_launcher_background);
                 Log.d("AB", "itemsData and image is empty");
 
             }
@@ -89,7 +101,7 @@ public class AdaptorNasa extends RecyclerView.Adapter<AdaptorNasa.NasaViewHolder
 
     @Override
     public int getItemCount() {
-        return imagecollection.getItems().size();
+        return imagecollection.getItems() != null ? imagecollection.getItems().size() : 0;
     }
 
 }
