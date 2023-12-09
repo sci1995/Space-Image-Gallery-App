@@ -1,6 +1,7 @@
 package com.example.finalassignment;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finalassignment.model.NasaCollection;
 import com.example.finalassignment.model.NasaItem;
+import com.example.finalassignment.model.NasaItemData;
+import com.example.finalassignment.model.NasaItemLink;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
@@ -18,11 +22,11 @@ import java.util.List;
 public class AdaptorNasa extends RecyclerView.Adapter<AdaptorNasa.NasaViewHolder> {
 
 
-    private List<NasaItem> imageList;
+    private NasaCollection imagecollection;
     private Context context;
 
-    public AdaptorNasa(List<NasaItem> imageList, Context context) {
-        this.imageList = imageList;
+    public AdaptorNasa(NasaCollection imageList, Context context) {
+        this.imagecollection = imageList;
         this.context = context;
     }
 
@@ -53,20 +57,39 @@ public class AdaptorNasa extends RecyclerView.Adapter<AdaptorNasa.NasaViewHolder
 
     @Override
     public void onBindViewHolder(NasaViewHolder holder, int position) {
-        holder.txtTitle.setText(imageList.get(position).getData().get(position).getTitle());
-        holder.txtDescription.setText(imageList.get(position).getData().get(position).getDescription());
+        List<NasaItem> items = imagecollection.getItems();
 
-        Picasso.Builder builder = new Picasso.Builder(context);
-        builder.downloader(new OkHttp3Downloader(context));
-        builder.build().load(imageList.get(position).getLinks().get(position).getHref())
-                .placeholder((R.drawable.ic_launcher_background))
-                .error(R.drawable.ic_launcher_background)
-                .into(holder.coverImage);
+        // Check if items is not null and position is within bounds
+        if (items != null && position >= 0 && position < items.size()) {
+            NasaItem item = items.get(position);
+            List<NasaItemData> dataList = item.getData();
+            List<NasaItemLink> linksList = item.getLinks();
 
+            // Check if dataList and linksList are not null and not empty because the api sometimes return null values
+            if (dataList != null && !dataList.isEmpty() && linksList != null && !linksList.isEmpty()) {
+                holder.txtTitle.setText(dataList.get(0).getTitle());
+                holder.txtDescription.setText(dataList.get(0).getDescription());
+
+                Picasso.Builder builder = new Picasso.Builder(context);
+                builder.downloader(new OkHttp3Downloader(context));
+                builder.build().load(linksList.get(0).getHref())
+                        .placeholder((R.drawable.ic_launcher_background))
+                        .error(R.drawable.ic_launcher_background)
+                        .into(holder.coverImage);
+            } else {
+                 holder.txtTitle.setText("empty Title");
+                holder.txtDescription.setText("empty description");
+                Log.d("AB", "itemsData and image is empty");
+
+            }
+        } else {
+            Log.d("AB", "items is empty");
+        }
     }
+
     @Override
     public int getItemCount() {
-        return imageList.size();
+        return imagecollection.getItems().size();
     }
 
 }

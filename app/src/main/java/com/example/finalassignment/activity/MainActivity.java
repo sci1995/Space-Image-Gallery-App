@@ -15,8 +15,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        // Initialize the EditText after inflating the binding
         TextView editText = findViewById(R.id.editTextText);
 
         findViewById(R.id.button).setOnClickListener(view -> {

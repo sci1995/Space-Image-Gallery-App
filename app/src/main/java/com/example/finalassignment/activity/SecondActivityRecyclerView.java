@@ -73,12 +73,15 @@ public class SecondActivityRecyclerView extends AppCompatActivity {
         if (collection != null && collection.getItems() != null) {
 
             recyclerView = findViewById(R.id.ImageRecyclerView);
-            adapter = new AdaptorNasa(collection.getItems(),this);
+            adapter = new AdaptorNasa(collection,this);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SecondActivityRecyclerView.this);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
         }
+    }
+}
 
+// my API testing
 //            for (NasaItem item : collection.getItems()) {
 //                // Iterate through NasaItemData objects
 //                if (item.getData() != null) {
@@ -100,5 +103,3 @@ public class SecondActivityRecyclerView extends AppCompatActivity {
 //            }
 //        }
 
-    }
-}

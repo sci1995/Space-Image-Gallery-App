@@ -3,4 +3,6 @@
     <string name="description">Description\n</string>
     <string name="title">Title</string>
     <string name="searchword">Search for</string>
+    <string name="search">Search</string>
+    <string name="logo">Logo</string>
 </resources>
