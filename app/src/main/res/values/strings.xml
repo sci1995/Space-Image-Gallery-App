@@ -5,4 +5,5 @@
     <string name="searchword">Search for</string>
     <string name="search">Search</string>
     <string name="logo">Logo</string>
+    <string name="placeholder">TextView</string>
 </resources>

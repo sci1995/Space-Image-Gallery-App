@@ -77,10 +77,13 @@ public class SecondActivityRecyclerView extends AppCompatActivity {
         if (collection != null && collection.getItems() != null) {
 
             recyclerView = findViewById(R.id.ImageRecyclerView);
+
             adapter = new AdaptorNasa(collection,this);
+            recyclerView.setAdapter(adapter);
+
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(SecondActivityRecyclerView.this);
             recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adapter);
+
 
 
             adapter.setItemClickListener(new View.OnClickListener() {
