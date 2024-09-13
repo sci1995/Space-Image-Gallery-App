@@ -1,4 +1,4 @@
-###Space Image Gallery App
+
 # Overview
 The Space Image Gallery App is an Android application that utilizes NASA's images API to showcase a gallery of stunning space images. Users can search for images, view thumbnails, and explore detailed information about each image.
 
