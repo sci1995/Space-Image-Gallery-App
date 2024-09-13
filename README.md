@@ -36,18 +36,18 @@ Glide or Picasso for image loading and caching.
 RecyclerView for displaying image thumbnails.
 Navigation Component for handling navigation between pages.
 # Usage
-Search for Images
+##Search for Images
 
 Enter keywords into the search bar on the main page and submit. The app will fetch and display relevant images.
 
-View Image Thumbnails
+##View Image Thumbnails
 
 Browse through the search results on the second page. Click on a thumbnail to view the image in detail.
 
-Explore Image Details
+##Explore Image Details
 
 On the third page, view the high-resolution image, read its description, and see additional metadata. Use the share button to share the image or navigate back to the main page.
 
-Contributing
+#Contributing
 Feel free to contribute to the project by opening issues or submitting pull requests. Follow the contribution guidelines provided in the repository.
 
